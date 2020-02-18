@@ -7,7 +7,6 @@
       {
         "name": "api-manager",
         "git_repo":{
-          "parent": "wso2",
           "name": "ansible-apim",
           "branch": "3.0.x"
         },
@@ -31,7 +30,7 @@
         "git_repo":{
           "parent": "wso2",
           "name": "ansible-is",
-          "branch": "5.9.x"
+          "branch": "5.9.0"
         },
         "products": [
           {
