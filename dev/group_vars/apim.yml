@@ -24,7 +24,7 @@ backup_dir: /tmp
 misc_file_location: "{{ product_package_location }}/misc"
 misc_file_copy_location: "{{ target }}/misc"
 security_file_location: "{{ product_package_location }}/security"
-#jdbc_driver: db-connector-java.jar
+#jdbc_driver: mysql-connector-java-5.1.48-bin.jar
 
 # Set backup_enabled to true to backup <carbon-home>/repository/deployment/server directory
 backup_enabled: false
@@ -59,7 +59,7 @@ pack_location: local
 #remote_pack: "<URL_TO_APIM_PACK>"
 
 # JDK Distributions
-jdk_name: jdk-distribution
+jdk_name: amazon-corretto-8-x64-linux-jdk
 java_dir: /opt
 java_symlink: "{{ java_dir }}/java"
 java_home: "{{ java_dir }}/{{ jdk_name }}"
