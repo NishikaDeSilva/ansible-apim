@@ -168,16 +168,14 @@
                          class="org.apache.axis2.format.PlainTextFormatter"/>
 
         <!--JSON Message Formatters-->
-        <messageFormatter contentType="application/json"
-                          class="org.apache.synapse.commons.json.JsonStreamFormatter"/>
+	<messageFormatter contentType="application/json"
+                          class="org.apache.synapse.commons.json.JsonFormatter"/>
         <!--messageFormatter contentType="application/json"
-                          class="org.apache.synapse.commons.json.JsonFormatter"/-->
+                          class="org.apache.synapse.commons.json.JsonStreamFormatter"/-->
         <messageFormatter contentType="application/json/badgerfish"
                           class="org.apache.axis2.json.JSONBadgerfishMessageFormatter"/>
         <messageFormatter contentType="text/javascript"
                           class="org.apache.axis2.json.JSONMessageFormatter"/>
-        <messageFormatter contentType="application/octet-stream" 
-                          class="org.wso2.carbon.relay.ExpandingMessageFormatter"/>
 
         <!-- See https://wso2.org/jira/browse/ESBJAVA-1725 before enabling bellow line -->
         <!--messageFormatter contentType=".*"
@@ -234,17 +232,14 @@
                         class="org.apache.axis2.format.PlainTextBuilder"/>
 
         <!--JSON Message Builders-->
-        <messageBuilder contentType="application/json"
-                        class="org.apache.synapse.commons.json.JsonStreamBuilder"/>
+	<messageBuilder contentType="application/json"
+                        class="org.apache.synapse.commons.json.JsonBuilder"/>
         <!--messageBuilder contentType="application/json"
-                        class="org.apache.synapse.commons.json.JsonBuilder"/-->
+                        class="org.apache.synapse.commons.json.JsonStreamBuilder"/-->
         <messageBuilder contentType="application/json/badgerfish"
                         class="org.apache.axis2.json.JSONBadgerfishOMBuilder"/>
         <messageBuilder contentType="text/javascript"
                         class="org.apache.axis2.json.JSONBuilder"/>
-        <messageBuilder contentType="application/octet-stream" 
-                        class="org.wso2.carbon.relay.BinaryRelayBuilder"/>
-
         <!--messageBuilder contentType="text/javascript"
                         class="org.apache.axis2.json.JSONStreamBuilder"/-->
 
@@ -548,14 +543,6 @@
                 <Password>wso2carbon</Password>
             </TrustStore>
         </parameter>
-        <!-- ============================================== -->
-        <!-- Configuration for Dynamic SSL Profile loading. -->
-        <!-- Configured for 10 mins. -->
-        <!-- ============================================== -->
-        <parameter name="dynamicSSLProfilesConfig">
-            <filePath>repository/resources/security/sslprofiles.xml</filePath>
-            <fileReadInterval>600000</fileReadInterval>
-        </parameter>
         <!--<parameter name="HostnameVerifier">DefaultAndLocalhost</parameter>-->
             <!--supports Strict|AllowAll|DefaultAndLocalhost or the default if none specified -->
     </transportSender>
@@ -622,7 +609,7 @@
             <ws.trust.store.Password>wso2carbon</ws.trust.store.Password>
         </parameter>
     </transportSender>
-
+    
     <!--<transportSender name="https"-->
                      <!--class="org.apache.axis2.transport.http.CommonsHTTPTransportSender">-->
         <!--<parameter name="PROTOCOL">HTTP/1.1</parameter>-->
