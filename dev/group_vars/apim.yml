@@ -66,7 +66,7 @@ pack_location: local
 jdk_file_name: WSO2_JDK_FILE_NAME
 java_dir: /opt
 java_symlink: "{{ java_dir }}/java"
-java_home: "{{ java_dir }}/{{ jdk_name }}"
+java_home: "{{ java_dir }}/{{ jdk_file_name }}"
 
 # Enable analytics for API Manager
 analytics_enabled: false
