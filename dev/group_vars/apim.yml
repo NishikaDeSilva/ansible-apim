@@ -63,7 +63,7 @@ pack_location: local
 #remote_pack: "<URL_TO_APIM_PACK>"
 
 # JDK Distributions
-# jdk_file_name: amazon-corretto-8-x64-linux-jdk
+jdk_file_name: WSO2_JDK_FILE_NAME
 java_dir: /opt
 java_symlink: "{{ java_dir }}/java"
 java_home: "{{ java_dir }}/{{ jdk_name }}"
