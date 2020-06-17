@@ -17,7 +17,7 @@
 wso2_group: wso2
 wso2_user: wso2carbon
 product_name: wso2am
-product_version: 2.6.0
+product_version: 2.1.0
 target: /mnt
 product_package_location: files
 backup_dir: /tmp
@@ -63,7 +63,7 @@ pack_location: local
 #remote_pack: "<URL_TO_APIM_PACK>"
 
 # JDK Distributions
-jdk_name: amazon-corretto-8.222.10.1-linux-x64
+# jdk_file_name: amazon-corretto-8-x64-linux-jdk
 java_dir: /opt
 java_symlink: "{{ java_dir }}/java"
 java_home: "{{ java_dir }}/{{ jdk_name }}"
@@ -72,12 +72,12 @@ java_home: "{{ java_dir }}/{{ jdk_name }}"
 analytics_enabled: false
 # Server URL of the remote StreamProcessor server used to collect statistics. Must be specified in
 # protocol://hostname:port/ format.
-stream_processor_url: "{tcp://localhost:7612}"
-stream_processor_username: ${admin.username}
-stream_processor_password: ${admin.password}
-stream_processor_rest_api_url: https://localhost:7444
-stream_processor_rest_api_username: ${admin.username}
-stream_processor_rest_api_password: ${admin.password}
+DAS_url: "{tcp://localhost:7612}"
+DAS_username: ${admin.username}
+DAS_password: ${admin.password}
+DAS_rest_api_url: https://localhost:9444
+DAS_rest_api_username: ${admin.username}
+DAS_rest_api_password: ${admin.password}
 
 # Server URL of the Authentication service. Make sure to import the Key Manager's public certificate to WSO2 API-M's
 # client-truststore.jks. For more information, see https://docs.wso2.com/display/ADMIN44x/Creating+New+Keystores
@@ -104,6 +104,9 @@ api_store_server_url: https://localhost:${mgt.transport.https.port}${carbon.cont
 # API Publisher related configurations
 api_publisher_url: https://localhost:${mgt.transport.https.port}/publisher
 
+api_resource_url: http://localhost:9764/resource
+api_resource_provider: admin
+
 # Gateway configurations
 gateway_environments:
   - { type: 'hybrid',
@@ -114,27 +117,89 @@ gateway_environments:
       gateway_ws_endpoint: 'ws://${carbon.local.ip}:9099' }
 
 # Traffic Manager configurations
-traffic_manager_receiver_url: tcp://${carbon.local.ip}:${receiver.url.port}
-traffic_manager_auth_url: ssl://${carbon.local.ip}:${auth.url.port}
+data_publisher_receiver_url: tcp://${carbon.local.ip}:${receiver.url.port}
+data_publisher_auth_url: ssl://${carbon.local.ip}:${auth.url.port}
 
-# Datasource configurations
-wso2am_db_driver: org.h2.Driver
-wso2am_db_url: jdbc:h2:repository/database/WSO2AM_DB;DB_CLOSE_ON_EXIT=FALSE
-wso2am_db_username: wso2carbon
-wso2am_db_password: wso2carbon
-wso2am_db_validation_query: SELECT 1
+# Datasource configurations 
+# h2db:
+#   db_driver: org.h2.Driver
+#   db_username: wso2carbon
+#   db_password: wso2carbon
+#   db_validation_query: SELECT 1
 
-wso2um_db_driver: org.h2.Driver
-wso2um_db_url: jdbc:h2:repository/database/WSO2CARBON_DB;DB_CLOSE_ON_EXIT=FALSE
-wso2um_db_username: wso2carbon
-wso2um_db_password: wso2carbon
-wso2um_db_validation_query: SELECT 1
+#   wso2am_db_url: jdbc:h2:repository/database/WSO2AM_DB;DB_CLOSE_ON_EXIT=FALSE
+#   wso2um_db_url: jdbc:h2:repository/database/WSO2CARBON_DB;DB_CLOSE_ON_EXIT=FALSE
+#   wso2reg_db_url: jdbc:h2:repository/database/REGISTRY_DB;DB_CLOSE_ON_EXIT=FALSE
 
-wso2reg_db_driver: org.h2.Driver
-wso2reg_db_url: jdbc:h2:repository/database/REGISTRY_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000;AUTO_SERVER=TRUE
-wso2reg_db_username: wso2carbon
-wso2reg_db_password: wso2carbon
-wso2reg_db_validation_query: SELECT 1
+mysql:
+  db_driver: com.mysql.jdbc.Driver 
+  db_password: RDS_PWD # TODO sed from cloudformation yaml
+  db_validation_query: SELECT 1
+
+  am_db_username: "{{ rds_username }}"
+  um_db_username: "{{ rds_username }}"
+  reg_db_username: "{{ rds_username }}"
+
+  am_db_url: jdbc:mysql://{{ wso2am_db_address }}:3306/WSO2AM_DB?autoReconnect=true&amp;useSSL=false
+  um_db_url: jdbc:mysql://{{ wso2am_db_address }}:3306/WSO2CARBON_DB?autoReconnect=true&amp;useSSL=false
+  reg_db_url: jdbc:mysql://{{ wso2am_db_address }}:3306/REGISTRY_DB?autoReconnect=true&amp;useSSL=false
+
+postgres:
+  db_driver: org.postgresql.Driver
+  db_password: RDS_PWD
+  db_validation_query: SELECT 1; COMMIT
+
+  am_db_username: "{{ rds_username }}"
+  um_db_username: "{{ rds_username }}"
+  reg_db_username: "{{ rds_username }}"
+
+  am_db_url: jdbc:postgresql://{{ wso2am_db_address }}:5432/WSO2AM_DB
+  um_db_url: jdbc:postgresql://{{ wso2am_db_address }}:5432/WSO2CARBON_DB
+  reg_db_url: jdbc:postgresql://{{ wso2am_db_address }}:5432/REGISTRY_DB
+
+sqlserver-se:
+  db_driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  db_password: RDS_PWD
+  db_validation_query: SELECT 1; COMMIT
+
+  am_db_username: "{{ rds_username }}"
+  um_db_username: "{{ rds_username }}"
+  reg_db_username: "{{ rds_username }}"
+
+  am_db_url: jdbc:sqlserver://{{ wso2am_db_address }}:1433;databaseName=WSO2AM_DB;SendStringParametersAsUnicode=false
+  um_db_url: jdbc:sqlserver://{{ wso2am_db_address }}:1433;databaseName=WSO2CARBON_DB;SendStringParametersAsUnicode=false
+  reg_db_url: jdbc:sqlserver://{{ wso2am_db_address }}:1433;databaseName=REGISTRY_DB;SendStringParametersAsUnicode=false
+
+oracle:
+  db_driver: oracle.jdbc.OracleDriver
+  db_password: RDS_PWD
+  db_validation_query: SELECT 1 FROM DUAL
+
+  am_db_username: WSO2AM_DB
+  um_db_username: WSO2CARBON_DB
+  reg_db_username: REGISTRY_DB
+
+  am_db_url: jdbc:oracle:thin:@{{ wso2am_db_address }}:1521/{{ oracle_sid }} # TODO get oracle_sid from cfn << look into how  oracle works
+  um_db_url: jdbc:oracle:thin:@{{ wso2am_db_address }}:1521/{{ oracle_sid }}
+  reg_db_url: jdbc:oracle:thin:@{{ wso2am_db_address }}:1521/{{ oracle_sid }}
+  
+wso2am_db_driver: "{{ vars[db_type].db_driver }}"
+wso2am_db_url: "{{ vars[db_type].am_db_url }}"
+wso2am_db_username: "{{ vars[db_type].am_db_username }}"
+wso2am_db_password: "{{ vars[db_type].db_password }}"
+wso2am_db_validation_query: "{{ vars[db_type].db_validation_query }}"
+
+wso2um_db_driver: "{{ vars[db_type].db_driver }}"
+wso2um_db_url: "{{ vars[db_type].um_db_url }}"
+wso2um_db_username: "{{ vars[db_type].um_db_username }}"
+wso2um_db_password: "{{ vars[db_type].db_password }}"
+wso2um_db_validation_query: "{{ vars[db_type].db_validation_query }}"
+
+wso2reg_db_driver: "{{ vars[db_type].db_driver }}"
+wso2reg_db_url: "{{ vars[db_type].reg_db_url }}"
+wso2reg_db_username: "{{ vars[db_type].reg_db_username }}"
+wso2reg_db_password: "{{ vars[db_type].db_password }}"
+wso2reg_db_validation_query: "{{ vars[db_type].db_validation_query }}"
 
 # Key Store and Trust Store configuration
 key_store_location: repository/resources/security/wso2carbon.jks
