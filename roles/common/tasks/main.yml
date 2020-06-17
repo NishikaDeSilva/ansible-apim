@@ -33,37 +33,37 @@
       when: enable_performance_tuning|bool
   
     # get information of aws rds database
-    - name: Get Database information 
-      rds_instance_info:
-        db_instance_identifier: wso2-dbinstance
-      register: wso2apim_database_info
-      tags:
-        - rds_info
+    # - name: Get Database information 
+    #   rds_instance_info:
+    #     db_instance_identifier: wso2-dbinstance
+    #   register: wso2apim_database_info
+    #   tags:
+    #     - rds_info
     
-    - name: Get Database params
-      set_fact:
-        db_type: "{{ wso2apim_database_info.engine.split('_')[0] | lower }}"
-        wso2am_db_address: "{{ wso2apim_database_info.endpoint.address }}"
-        oracle_sid: "{{  wso2apim_database_info.db_name }}"
-        rds_username: "{{  wso2apim_database_info.master_username }}"
-      tags:
-        - rds_info
+    # - name: Get Database params
+    #   set_fact:
+    #     db_type: "{{ wso2apim_database_info.engine.split('_')[0] | lower }}"
+    #     wso2am_db_address: "{{ wso2apim_database_info.endpoint.address }}"
+    #     oracle_sid: "{{  wso2apim_database_info.db_name }}"
+    #     rds_username: "{{  wso2apim_database_info.master_username }}"
+    #   tags:
+    #     - rds_info
 
-    - name: Get Database ENV
-      set_fact:
-        db_env: "{{ (lookup ('env', 'DB' )) }}"
-      tags:
-        - test_db
+    # - name: Get Database ENV
+    #   set_fact:
+    #     db_env: "{{ (lookup ('env', 'DB' )) }}"
+    #   tags:
+    #     - test_db
 
     - name: Get Database type
       set_fact: 
-        db_type1: "{{ db_env.split('_')[0] | lower }}"
+        db_type: AM_DB_TYPE
       tags:
         - test_db
 
-    - debug: msg="Database is set to {{ wso2am_db_driver }}"
-      tags:
-        - test_db
+    # - debug: msg="Database is set to {{ wso2am_db_driver }}"
+    #   tags:
+    #     - test_db
 
     - name: Create Java directory
       file:

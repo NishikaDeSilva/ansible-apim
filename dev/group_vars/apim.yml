@@ -136,39 +136,39 @@ mysql:
   db_password: RDS_PWD # TODO sed from cloudformation yaml
   db_validation_query: SELECT 1
 
-  am_db_username: "{{ rds_username }}"
-  um_db_username: "{{ rds_username }}"
-  reg_db_username: "{{ rds_username }}"
+  am_db_username: RDS_USERNAME
+  um_db_username: RDS_USERNAME
+  reg_db_username: RDS_USERNAME
 
-  am_db_url: jdbc:mysql://{{ wso2am_db_address }}:3306/WSO2AM_DB?autoReconnect=true&amp;useSSL=false
-  um_db_url: jdbc:mysql://{{ wso2am_db_address }}:3306/WSO2CARBON_DB?autoReconnect=true&amp;useSSL=false
-  reg_db_url: jdbc:mysql://{{ wso2am_db_address }}:3306/REGISTRY_DB?autoReconnect=true&amp;useSSL=false
+  am_db_url: jdbc:mysql://WSO2AM_DB_ADDRESS:3306/WSO2AM_DB?autoReconnect=true&amp;useSSL=false
+  um_db_url: jdbc:mysql://WSO2AM_DB_ADDRESS:3306/WSO2CARBON_DB?autoReconnect=true&amp;useSSL=false
+  reg_db_url: jdbc:mysql://WSO2AM_DB_ADDRESS:3306/REGISTRY_DB?autoReconnect=true&amp;useSSL=false
 
 postgres:
   db_driver: org.postgresql.Driver
   db_password: RDS_PWD
   db_validation_query: SELECT 1; COMMIT
 
-  am_db_username: "{{ rds_username }}"
-  um_db_username: "{{ rds_username }}"
-  reg_db_username: "{{ rds_username }}"
+  am_db_username: RDS_USERNAME
+  um_db_username: RDS_USERNAME
+  reg_db_username: RDS_USERNAME
 
-  am_db_url: jdbc:postgresql://{{ wso2am_db_address }}:5432/WSO2AM_DB
-  um_db_url: jdbc:postgresql://{{ wso2am_db_address }}:5432/WSO2CARBON_DB
-  reg_db_url: jdbc:postgresql://{{ wso2am_db_address }}:5432/REGISTRY_DB
+  am_db_url: jdbc:postgresql://WSO2AM_DB_ADDRESS:5432/WSO2AM_DB
+  um_db_url: jdbc:postgresql://WSO2AM_DB_ADDRESS:5432/WSO2CARBON_DB
+  reg_db_url: jdbc:postgresql://WSO2AM_DB_ADDRESS:5432/REGISTRY_DB
 
 sqlserver-se:
   db_driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
   db_password: RDS_PWD
   db_validation_query: SELECT 1; COMMIT
 
-  am_db_username: "{{ rds_username }}"
-  um_db_username: "{{ rds_username }}"
-  reg_db_username: "{{ rds_username }}"
+  am_db_username: RDS_USERNAME
+  um_db_username: RDS_USERNAME
+  reg_db_username: RDS_USERNAME
 
-  am_db_url: jdbc:sqlserver://{{ wso2am_db_address }}:1433;databaseName=WSO2AM_DB;SendStringParametersAsUnicode=false
-  um_db_url: jdbc:sqlserver://{{ wso2am_db_address }}:1433;databaseName=WSO2CARBON_DB;SendStringParametersAsUnicode=false
-  reg_db_url: jdbc:sqlserver://{{ wso2am_db_address }}:1433;databaseName=REGISTRY_DB;SendStringParametersAsUnicode=false
+  am_db_url: jdbc:sqlserver://WSO2AM_DB_ADDRESS:1433;databaseName=WSO2AM_DB;SendStringParametersAsUnicode=false
+  um_db_url: jdbc:sqlserver://WSO2AM_DB_ADDRESS:1433;databaseName=WSO2CARBON_DB;SendStringParametersAsUnicode=false
+  reg_db_url: jdbc:sqlserver://WSO2AM_DB_ADDRESS:1433;databaseName=REGISTRY_DB;SendStringParametersAsUnicode=false
 
 oracle:
   db_driver: oracle.jdbc.OracleDriver
@@ -179,9 +179,9 @@ oracle:
   um_db_username: WSO2CARBON_DB
   reg_db_username: REGISTRY_DB
 
-  am_db_url: jdbc:oracle:thin:@{{ wso2am_db_address }}:1521/{{ oracle_sid }} # TODO get oracle_sid from cfn << look into how  oracle works
-  um_db_url: jdbc:oracle:thin:@{{ wso2am_db_address }}:1521/{{ oracle_sid }}
-  reg_db_url: jdbc:oracle:thin:@{{ wso2am_db_address }}:1521/{{ oracle_sid }}
+  am_db_url: jdbc:oracle:thin:@WSO2AM_DB_ADDRESS:1521/SID # TODO get oracle_sid from cfn << look into how  oracle works
+  um_db_url: jdbc:oracle:thin:@WSO2AM_DB_ADDRESS:1521/SID
+  reg_db_url: jdbc:oracle:thin:@WSO2AM_DB_ADDRESS:1521/SID
   
 wso2am_db_driver: "{{ vars[db_type].db_driver }}"
 wso2am_db_url: "{{ vars[db_type].am_db_url }}"
