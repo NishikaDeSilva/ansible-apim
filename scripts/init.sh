@@ -5,26 +5,11 @@ set -o xtrace; set -e
 WUM_USER=$1
 WUM_PASS=$2
 
-AWS_ACCESS_KEY=$3
-AWS_SECRET_KEY=$4
-
-PRODUCT="wso2am"
-VERSION="2.1.0"
+PRODUCT=$3
+VERSION=$4
 
 WORKSPACE=$(pwd)
 echo $WORKSPACE
-
-# install aws
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-unzip awscliv2.zip
-sudo ./aws/install
-
-aws --version
-
-aws configure set aws_access_key_id $AWS_ACCESS_KEY
-aws configure set aws_secret_access_key $AWS_SECRET_KEY
-
-aws configure list
 
 #install wum 
 wget -q http://product-dist.wso2.com/downloads/wum/3.0.6/wum-3.0.6-linux-x64.tar.gz
@@ -35,10 +20,16 @@ which wum
 
 wum init -u $WUM_USER -p $WUM_PASS
 
+sed -i '0,/https:\/\/api.updates.wso2.com/{s/https:\/\/api.updates.wso2.com/https:\/\/gateway.api.cloud.wso2.com\/t\/wso2umuat/}' $HOME/.wum3/config.yaml
+sed -i "s/${WUM_APPKEY_UAT}/${WUM_APPKEY_LIVE}/g" $HOME/.wum3/config.yaml
+
+wum init -u $WUM_USER -p $WUM_PASS
+
 # add product
 wum add $PRODUCT-$VERSION -y
+wum update $PRODUCT-$VERSION
 
-cp $HOME/.wum3/products/$PRODUCT/$VERSION/$PRODUCT-$VERSION.zip $WORKSPACE/ansible-apim/files/packs/$PRODUCT-$VERSION.zip
+cp $HOME/.wum3/products/$PRODUCT/$VERSION/full/$PRODUCT-$VERSION*.zip $WORKSPACE/ansible-apim/files/packs/$PRODUCT-$VERSION.zip
 
 # install ansible
 apt update
