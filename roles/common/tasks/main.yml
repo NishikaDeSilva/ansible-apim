@@ -57,7 +57,8 @@
 
     - name: Get Database type
       set_fact: 
-        db_type: AM_DB_TYPE
+        db_param: AM_DB_TYPE
+        db_type: "{{ db_param.split('-')[0] | lower }}"
       tags:
         - test_db
 

@@ -90,7 +90,7 @@
 
     - name: Copy JDBC Driver
       copy:
-        src: "{{ product_package_location }}/lib/{{ jdbc_driver }}"
+        src: "{{ product_package_location }}/lib/{{ vars[db_type].jdbc_driver }}"
         dest: "{{ carbon_home }}/repository/components/lib"
       when: jdbc_driver is defined
 

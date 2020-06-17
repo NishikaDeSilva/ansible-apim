@@ -24,7 +24,7 @@ backup_dir: /tmp
 misc_file_location: "{{ product_package_location }}/misc"
 misc_file_copy_location: "{{ target }}/misc"
 security_file_location: "{{ product_package_location }}/security"
-#jdbc_driver: mysql-connector-java-5.1.47-bin.jar
+jdbc_driver: mysql-connector-java-5.1.49.jar
 java_xms: 256
 java_xmx: 1024
 java_max_perm_size: 256
@@ -132,7 +132,8 @@ data_publisher_auth_url: ssl://${carbon.local.ip}:${auth.url.port}
 #   wso2reg_db_url: jdbc:h2:repository/database/REGISTRY_DB;DB_CLOSE_ON_EXIT=FALSE
 
 mysql:
-  db_driver: com.mysql.jdbc.Driver 
+  jdbc_driver: mysql-connector-java-5.1.49.jar
+  db_driver_name: com.mysql.jdbc.Driver 
   db_password: RDS_PWD # TODO sed from cloudformation yaml
   db_validation_query: SELECT 1
 
@@ -157,8 +158,8 @@ postgres:
   um_db_url: jdbc:postgresql://WSO2AM_DB_ADDRESS:5432/WSO2CARBON_DB
   reg_db_url: jdbc:postgresql://WSO2AM_DB_ADDRESS:5432/REGISTRY_DB
 
-sqlserver-se:
-  db_driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
+sqlserver:
+  db_driver_name: com.microsoft.sqlserver.jdbc.SQLServerDriver
   db_password: RDS_PWD
   db_validation_query: SELECT 1; COMMIT
 
@@ -171,7 +172,7 @@ sqlserver-se:
   reg_db_url: jdbc:sqlserver://WSO2AM_DB_ADDRESS:1433;databaseName=REGISTRY_DB;SendStringParametersAsUnicode=false
 
 oracle:
-  db_driver: oracle.jdbc.OracleDriver
+  db_driver_name: oracle.jdbc.OracleDriver
   db_password: RDS_PWD
   db_validation_query: SELECT 1 FROM DUAL
 
@@ -183,19 +184,19 @@ oracle:
   um_db_url: jdbc:oracle:thin:@WSO2AM_DB_ADDRESS:1521/SID
   reg_db_url: jdbc:oracle:thin:@WSO2AM_DB_ADDRESS:1521/SID
   
-wso2am_db_driver: "{{ vars[db_type].db_driver }}"
+wso2am_db_driver: "{{ vars[db_type].db_driver_name }}"
 wso2am_db_url: "{{ vars[db_type].am_db_url }}"
 wso2am_db_username: "{{ vars[db_type].am_db_username }}"
 wso2am_db_password: "{{ vars[db_type].db_password }}"
 wso2am_db_validation_query: "{{ vars[db_type].db_validation_query }}"
 
-wso2um_db_driver: "{{ vars[db_type].db_driver }}"
+wso2um_db_driver: "{{ vars[db_type].db_driver_name }}"
 wso2um_db_url: "{{ vars[db_type].um_db_url }}"
 wso2um_db_username: "{{ vars[db_type].um_db_username }}"
 wso2um_db_password: "{{ vars[db_type].db_password }}"
 wso2um_db_validation_query: "{{ vars[db_type].db_validation_query }}"
 
-wso2reg_db_driver: "{{ vars[db_type].db_driver }}"
+wso2reg_db_driver: "{{ vars[db_type].db_driver_name }}"
 wso2reg_db_url: "{{ vars[db_type].reg_db_url }}"
 wso2reg_db_username: "{{ vars[db_type].reg_db_username }}"
 wso2reg_db_password: "{{ vars[db_type].db_password }}"
