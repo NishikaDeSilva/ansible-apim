@@ -55,14 +55,20 @@
     #   tags:
     #     - test_db
 
-    - name: Get Database type
+    - name: Get Database param
       set_fact: 
         db_param: AM_DB_TYPE
         db_type: "{{ db_param.split('-')[0] | lower }}"
       tags:
         - test_db
 
-    # - debug: msg="Database is set to {{ wso2am_db_driver }}"
+    - name: Get Database type
+      set_fact: 
+        db_type: "{{ db_param.split('-')[0] | lower }}"
+      tags:
+        - test_db
+
+    # - debug: msg = "Database is set to {{ wso2am_db_driver }}"
     #   tags:
     #     - test_db
 
