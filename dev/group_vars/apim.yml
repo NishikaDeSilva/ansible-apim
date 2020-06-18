@@ -63,7 +63,12 @@ pack_location: local
 #remote_pack: "<URL_TO_APIM_PACK>"
 
 # JDK Distributions
-jdk_file_name: WSO2_JDK_FILE_NAME
+ORACLE_JDK8:
+  jdk_file_name: WSO2_JDK_FILE_NAME
+ADOPT_OPEN_JDK8:
+  jdk_file_name: WSO2_JDK_FILE_NAME
+
+
 java_dir: /opt
 java_symlink: "{{ java_dir }}/java"
 java_home: "{{ java_dir }}/{{ jdk_file_name }}"
@@ -141,12 +146,12 @@ mysql:
   um_db_username: RDS_USERNAME
   reg_db_username: RDS_USERNAME
 
-  am_db_url: jdbc:mysql://WSO2AM_DB_ADDRESS:3306/WSO2AM_DB?autoReconnect=true&amp;useSSL=false
-  um_db_url: jdbc:mysql://WSO2AM_DB_ADDRESS:3306/WSO2CARBON_DB?autoReconnect=true&amp;useSSL=false
-  reg_db_url: jdbc:mysql://WSO2AM_DB_ADDRESS:3306/REGISTRY_DB?autoReconnect=true&amp;useSSL=false
+  am_db_url: jdbc:mysql://WSO2AM_DB_ADDRESS:3306/WSO2AM_APIMGT_DB?autoReconnect=true&amp;useSSL=false
+  um_db_url: jdbc:mysql://WSO2AM_DB_ADDRESS:3306/WSO2AM_COMMON_DB?autoReconnect=true&amp;useSSL=false
+  reg_db_url: jdbc:mysql://WSO2AM_DB_ADDRESS:3306/WSO2AM_COMMON_DB?autoReconnect=true&amp;useSSL=false
 
 postgres:
-  db_driver: org.postgresql.Driver
+  db_driver_name: org.postgresql.Driver
   db_password: RDS_PWD
   db_validation_query: SELECT 1; COMMIT
 
@@ -154,9 +159,9 @@ postgres:
   um_db_username: RDS_USERNAME
   reg_db_username: RDS_USERNAME
 
-  am_db_url: jdbc:postgresql://WSO2AM_DB_ADDRESS:5432/WSO2AM_DB
-  um_db_url: jdbc:postgresql://WSO2AM_DB_ADDRESS:5432/WSO2CARBON_DB
-  reg_db_url: jdbc:postgresql://WSO2AM_DB_ADDRESS:5432/REGISTRY_DB
+  am_db_url: jdbc:postgresql://WSO2AM_DB_ADDRESS:5432/WSO2AM_APIMGT_DB
+  um_db_url: jdbc:postgresql://WSO2AM_DB_ADDRESS:5432/WSO2AM_COMMON_DB
+  reg_db_url: jdbc:postgresql://WSO2AM_DB_ADDRESS:5432/WSO2AM_COMMON_DB
 
 sqlserver:
   db_driver_name: com.microsoft.sqlserver.jdbc.SQLServerDriver
@@ -167,18 +172,18 @@ sqlserver:
   um_db_username: RDS_USERNAME
   reg_db_username: RDS_USERNAME
 
-  am_db_url: jdbc:sqlserver://WSO2AM_DB_ADDRESS:1433;databaseName=WSO2AM_DB;SendStringParametersAsUnicode=false
-  um_db_url: jdbc:sqlserver://WSO2AM_DB_ADDRESS:1433;databaseName=WSO2CARBON_DB;SendStringParametersAsUnicode=false
-  reg_db_url: jdbc:sqlserver://WSO2AM_DB_ADDRESS:1433;databaseName=REGISTRY_DB;SendStringParametersAsUnicode=false
+  am_db_url: jdbc:sqlserver://WSO2AM_DB_ADDRESS:1433;databaseName=WSO2AM_APIMGT_DB;SendStringParametersAsUnicode=false
+  um_db_url: jdbc:sqlserver://WSO2AM_DB_ADDRESS:1433;databaseName=WSO2AM_COMMON_DB;SendStringParametersAsUnicode=false
+  reg_db_url: jdbc:sqlserver://WSO2AM_DB_ADDRESS:1433;databaseName=WSO2AM_COMMON_DB;SendStringParametersAsUnicode=false
 
 oracle:
   db_driver_name: oracle.jdbc.OracleDriver
   db_password: RDS_PWD
   db_validation_query: SELECT 1 FROM DUAL
 
-  am_db_username: WSO2AM_DB
-  um_db_username: WSO2CARBON_DB
-  reg_db_username: REGISTRY_DB
+  am_db_username: WSO2AM_APIMGT_DB
+  um_db_username: WSO2AM_COMMON_DB
+  reg_db_username: WSO2AM_COMMON_DB
 
   am_db_url: jdbc:oracle:thin:@WSO2AM_DB_ADDRESS:1521/SID # TODO get oracle_sid from cfn << look into how  oracle works
   um_db_url: jdbc:oracle:thin:@WSO2AM_DB_ADDRESS:1521/SID
