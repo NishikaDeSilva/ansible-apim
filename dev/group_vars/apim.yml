@@ -71,7 +71,7 @@ ADOPT_OPEN_JDK8:
 
 java_dir: /opt
 java_symlink: "{{ java_dir }}/java"
-java_home: "{{ java_dir }}/{{ jdk_file_name }}"
+java_home: "{{ java_dir }}/{{ vars[jdk_type].jdk_file_name }}"
 
 # Enable analytics for API Manager
 analytics_enabled: false
@@ -151,7 +151,7 @@ mysql:
   reg_db_url: jdbc:mysql://WSO2AM_DB_ADDRESS:3306/WSO2AM_COMMON_DB?autoReconnect=true&amp;useSSL=false
 
 postgres:
-  db_driver_name: org.postgresql.Driver
+  db_driver: org.postgresql.Driver
   db_password: RDS_PWD
   db_validation_query: SELECT 1; COMMIT
 
