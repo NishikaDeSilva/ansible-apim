@@ -144,6 +144,7 @@
         name: wso2apim
         state: started
         daemon_reload: yes
+        no_block: no
 
     become: true
     become_user: root
