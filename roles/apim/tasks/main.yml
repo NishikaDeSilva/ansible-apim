@@ -138,13 +138,13 @@
     become_method: sudo
     become_user: root
 
-  - block:
-    - name: Start wso2apim as a service
-      systemd:
-        name: wso2apim
-        state: started
-        daemon_reload: yes
-        no_block: yes
+  # - block:
+  #   - name: Start wso2apim as a service
+  #     systemd:
+  #       name: wso2apim
+  #       state: started
+  #       daemon_reload: yes
+  #       no_block: yes
 
-    become: true
-    become_user: root
+  #   become: true
+  #   become_user: root
