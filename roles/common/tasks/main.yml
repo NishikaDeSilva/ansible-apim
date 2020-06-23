@@ -103,10 +103,18 @@
         dest: "{{ java_symlink }}"
         state: link
 
-    - name: Install unzip package
-      package:
-        name: unzip
-        state: present
+    - name: Update java_home
+      lineinfile:
+        path: /etc/environment
+        regexp: '^JAVA_HOME'
+        line: JAVA_HOME={{ java_home }}
+        mode: preserve
+
+
+    # - name: Install unzip package
+    #   package:
+    #     name: unzip
+    #     state: present
 
     become: true
     become_user: root
