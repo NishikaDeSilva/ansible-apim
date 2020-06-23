@@ -108,7 +108,7 @@
         path: /etc/environment
         regexp: '^JAVA_HOME'
         line: JAVA_HOME={{ java_home }}
-        mode: preserve
+        mode: '0644'
 
 
     # - name: Install unzip package
