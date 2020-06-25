@@ -26,7 +26,7 @@ misc_file_copy_location: "{{ target }}/misc"
 security_file_location: "{{ product_package_location }}/security"
 jdbc_driver: mysql-connector-java-5.1.49.jar
 java_xms: 256
-java_xmx: 1024
+java_xmx: 2048
 java_max_perm_size: 256
 qpid_heartbeat_delay: 30
 
