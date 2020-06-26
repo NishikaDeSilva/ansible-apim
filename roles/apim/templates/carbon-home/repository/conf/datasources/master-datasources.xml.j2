@@ -15,13 +15,13 @@
             <definition type="RDBMS">
                 <configuration>
                     <url>{{ wso2am_db_url }}</url>
-                    <username>{{ wso2am_db_username }}</username>
-                    <password>{{ wso2am_db_password }}</password>
-                    <driverClassName>{{ wso2am_db_driver }}</driverClassName>
+                    <username>{{ wso2um_db_username }}</username>
+                    <password>{{ wso2um_db_password }}</password>
+                    <driverClassName>{{ wso2um_db_driver }}</driverClassName>
                     <maxActive>100</maxActive>
                     <maxWait>60000</maxWait>
                     <testOnBorrow>true</testOnBorrow>
-                    <validationQuery>SELECT 1</validationQuery>
+                    <validationQuery>{{ wso2um_db_validation_query }}</validationQuery>
                     <validationInterval>30000</validationInterval>
                 </configuration>
             </definition>
