@@ -177,6 +177,7 @@ sqlserver:
   reg_db_url: jdbc:sqlserver://WSO2AM_DB_ADDRESS:1433;databaseName=WSO2AM_COMMON_DB;SendStringParametersAsUnicode=false
 
 oracle:
+  jdbc_driver: ojdbc10.jar
   db_driver_name: oracle.jdbc.OracleDriver
   db_password: RDS_PWD
   db_validation_query: SELECT 1 FROM DUAL
