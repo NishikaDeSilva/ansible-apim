@@ -98,18 +98,18 @@
             <name>WSO2_UM_DB</name>
             <description>The datasource used by user manager</description>
             <jndiConfig>
-                <name>jdbc/WSO2UM_DB</name>
+                <name>jdbc/wso2stats_db</name>
             </jndiConfig>
             <definition type="RDBMS">
                 <configuration>
-                    <url>{{ wso2um_db_url }}</url>
-                    <username>{{ wso2um_db_username }}</username>
-                    <password>{{ wso2um_db_password }}</password>
-                    <driverClassName>{{ wso2um_db_driver }}</driverClassName>
+                    <url>{{ wso2stats_db_url }}</url>
+                    <username>{{ wso2stats_db_username }}</username>
+                    <password>{{ wso2stats_db_password }}</password>
+                    <driverClassName>{{ wso2stats_db_driver }}</driverClassName>
                     <maxActive>50</maxActive>
                     <maxWait>60000</maxWait>
                     <testOnBorrow>true</testOnBorrow>
-                    <validationQuery>{{ wso2um_db_validation_query }}</validationQuery>
+                    <validationQuery>{{ wso2stats_db_validation_query }}</validationQuery>
                     <validationInterval>30000</validationInterval>
                 </configuration>
             </definition>
@@ -123,14 +123,14 @@
             </jndiConfig>
             <definition type="RDBMS">
                 <configuration>
-                    <url>{{ wso2reg_db_url }}</url>
-                    <username>{{ wso2reg_db_username }}</username>
-                    <password>{{ wso2reg_db_password }}</password>
-                    <driverClassName>{{ wso2reg_db_driver }}</driverClassName>
+                    <url>{{ wso2mbstore_db_url }}</url>
+                    <username>{{ wso2mbstore_db_username }}</username>
+                    <password>{{ wso2mbstore_db_password }}</password>
+                    <driverClassName>{{ wso2mbstore_db_driver }}</driverClassName>
                     <maxActive>50</maxActive>
                     <maxWait>60000</maxWait>
                     <testOnBorrow>true</testOnBorrow>
-                    <validationQuery>{{ wso2reg_db_validation_query }}</validationQuery>
+                    <validationQuery>{{ wso2mbstore_db_validation_query }}</validationQuery>
                     <validationInterval>30000</validationInterval>
                 </configuration>
             </definition>

@@ -36,7 +36,7 @@
     <!--
        Product Version
     -->
-    <Version>2.6.0</Version>
+    <Version>2.1.0</Version>
 
     <!--
        Host name or IP address of the machine hosting this server
@@ -49,7 +49,7 @@
     <!--
     Host name to be used for the Carbon management console
     -->
-    <MgtHostName>{{ hostname }}</MgtHostName>
+    <MgtHostName>{{ mgt_hostname }}</MgtHostName>
 
     <!--
         The URL of the back end server. This is where the admin services are hosted and
@@ -268,8 +268,6 @@
     <Cache>
         <!-- Default cache timeout in minutes -->
         <DefaultCacheTimeout>15</DefaultCacheTimeout>
-        <!-- Force all caches to act as local -->
-        <ForceLocalCache>true</ForceLocalCache>
     </Cache>
 
     <!--
@@ -347,38 +345,11 @@
             <Description>Default User Role</Description>
         </Role>
     </ServiceUserRoles>
-
-    <!--
-       Configurations related to Carbon Crypto Service which is a crypto framework used inside Carbon products.
-    -->
-    <CryptoService>
-
-        <Enabled>true</Enabled>
-
-        <!-- The crypto provider which is used for internal data encryption and decryption -->
-        <InternalCryptoProviderClassName>org.wso2.carbon.crypto.provider.KeyStoreBasedInternalCryptoProvider</InternalCryptoProviderClassName>
-
-        <!--
-            The crypto provider which is used for the crypto needs which come when communicating with external parties.
-            e.g. Signing, Decrypting.
-        -->
-        <ExternalCryptoProviderClassName>org.wso2.carbon.core.encryption.KeyStoreBasedExternalCryptoProvider</ExternalCryptoProviderClassName>
-
-        <!--
-            The list of key resolvers which will be used based on the context when handling crypto with external parties.
-
-            e.g. Resolving the public key of an external entity.
-        -->
-        <KeyResolvers>
-            <KeyResolver className="org.wso2.carbon.crypto.defaultProvider.resolver.ContextIndependentKeyResolver" priority="-1"/>
-        </KeyResolvers>
-
-    </CryptoService>
-
-    <!--
-      Enable following config to allow Emails as usernames.
-    -->
-    <!--EnableEmailUserName>true</EnableEmailUserName-->
+    
+    <!-- 
+      Enable following config to allow Emails as usernames. 	
+    -->	    	
+    <!--EnableEmailUserName>true</EnableEmailUserName-->	
 
     <!--
       Security configurations
@@ -400,23 +371,6 @@
             <!-- Private Key password-->
             <KeyPassword>{{ key_store_key_password }}</KeyPassword>
         </KeyStore>
-
-        <!--
-            The KeyStore which is used for encrypting/decrypting internal data.
-            This block is read by Carbon Crypto Service.
-        -->
-        <InternalKeyStore>
-            <!-- Keystore file location-->
-            <Location>{{ internal_keystore_location }}</Location>
-            <!-- Keystore type (JKS/PKCS12 etc.)-->
-            <Type>JKS</Type>
-            <!-- Keystore password-->
-            <Password>{{ internal_keystore_password }}</Password>
-            <!-- Private Key alias-->
-            <KeyAlias>{{ internal_keystore_key_alias }}</KeyAlias>
-            <!-- Private Key password-->
-            <KeyPassword>{{ internal_keystore_key_password }}</KeyPassword>
-        </InternalKeyStore>
 
         <!--
             System wide trust-store which is used to maintain the certificates of all
@@ -485,7 +439,7 @@
             <Enabled>true</Enabled>
             <Rule>allow</Rule>
             <Patterns>
-                <Pattern>commonauth</Pattern>
+                <!--Pattern></Pattern-->
             </Patterns>
         </XSSPreventionConfig>
     </Security>
@@ -626,6 +580,16 @@
         <SvnPassword>password</SvnPassword>
         <SvnUrlAppendTenantId>true</SvnUrlAppendTenantId>
     </DeploymentSynchronizer>
+
+    <!-- Deployment Synchronizer Configuration. Uncomment the following section when running with "registry based" dep sync.
+        In master nodes you need to set both AutoCommit and AutoCheckout to true
+        and in  worker nodes set only AutoCheckout to true.
+    -->
+    <!--<DeploymentSynchronizer>
+        <Enabled>true</Enabled>
+        <AutoCommit>false</AutoCommit>
+        <AutoCheckout>true</AutoCheckout>
+    </DeploymentSynchronizer>-->
 
     <!-- Mediation persistence configurations. Only valid if mediation features are available i.e. ESB -->
     <!--<MediationConfig>

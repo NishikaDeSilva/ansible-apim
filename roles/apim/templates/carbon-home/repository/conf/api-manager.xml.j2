@@ -139,14 +139,14 @@
     </CacheConfigurations>
 
     <!--
-        API usage tracker configuration used by the StreamProcessor data publisher and
+        API usage tracker configuration used by the DAS data publisher and
         Google Analytics publisher in API gateway.
     -->
     <Analytics>
         <!-- Enable Analytics for API Manager -->
         <Enabled>{{ analytics_enabled }}</Enabled>
 
-        <!-- Server URL of the remote StreamProcessor server used to collect statistics. Must
+        <!-- Server URL of the remote DAS server used to collect statistics. Must
              be specified in protocol://hostname:port/ format.
 
              An event can also be published to multiple Receiver Groups each having 1 or more receivers. Receiver
@@ -156,20 +156,20 @@
 
              Ex - Multiple Receiver Groups with two receivers each
              {tcp://localhost:7612/,tcp://localhost:7613},{tcp://localhost:7712/,tcp://localhost:7713/} -->
-        <StreamProcessorServerURL>{{ stream_processor_url }}</StreamProcessorServerURL>
-        <!--StreamProcessorAuthServerURL>{ssl://localhost:7712}</StreamProcessorAuthServerURL-->
-        <!-- Administrator username to login to the remote StreamProcessor server. -->
-        <StreamProcessorUsername>{{ stream_processor_username }}</StreamProcessorUsername>
-        <!-- Administrator password to login to the remote StreamProcessor server. -->
-        <StreamProcessorPassword>{{ stream_processor_password }}</StreamProcessorPassword>
+        <DASServerURL>{{ das_url }}</DASServerURL>
+        <!--DASAuthServerURL>{ssl://localhost:7712}</DASAuthServerURL-->
+        <!-- Administrator username to login to the remote DAS server. -->
+        <DASUsername>{{ das_username }}</DASUsername>
+        <!-- Administrator password to login to the remote DAS server. -->
+        <DASPassword>{{ das_password }}</DASPassword>
 
         <!-- For APIM implemented Statistic client for RDBMS -->
         <StatsProviderImpl>org.wso2.carbon.apimgt.usage.client.impl.APIUsageStatisticsRestClientImpl</StatsProviderImpl>
 
-        <!-- StreamProcessor REST API configuration -->
-        <StreamProcessorRestApiURL>{{ stream_processor_rest_api_url }}</StreamProcessorRestApiURL>
-        <StreamProcessorRestApiUsername>{{ stream_processor_rest_api_username }}</StreamProcessorRestApiUsername>
-        <StreamProcessorRestApiPassword>{{ stream_processor_rest_api_password }}</StreamProcessorRestApiPassword>
+        <!-- DAS REST API configuration -->
+        <DASRestApiURL>{{ das_rest_api_url }}</DASRestApiURL>
+        <DASRestApiUsername>{{ das_rest_api_username }}</DASRestApiUsername>
+        <DASRestApiPassword>{{ das_rest_api_password }}</DASRestApiPassword>
 
         <!-- Below property is used to skip trying to connect to event receiver nodes when publishing events even if
             the stats enabled flag is set to true. -->
@@ -563,8 +563,8 @@
         <EnableAdvanceThrottling>true</EnableAdvanceThrottling>
         <TrafficManager>
             <Type>Binary</Type>
-            <ReceiverUrlGroup>{{ traffic_manager_receiver_url }}</ReceiverUrlGroup>
-            <AuthUrlGroup>{{ traffic_manager_auth_url }}</AuthUrlGroup>
+            <ReceiverUrlGroup>{{ data_publisher_receiver_url }}</ReceiverUrlGroup>
+            <AuthUrlGroup>{{ data_publisher_auth_url }}</AuthUrlGroup>
             <Username>${admin.username}</Username>
             <Password>${admin.password}</Password>
         </TrafficManager>

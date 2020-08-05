@@ -70,14 +70,14 @@ java_home: "{{ java_dir }}/{{ jdk_name }}"
 
 # Enable analytics for API Manager
 analytics_enabled: false
-# Server URL of the remote StreamProcessor server used to collect statistics. Must be specified in
+# Server URL of the remote DAS server used to collect statistics. Must be specified in
 # protocol://hostname:port/ format.
-stream_processor_url: "{tcp://localhost:7612}"
-stream_processor_username: ${admin.username}
-stream_processor_password: ${admin.password}
-stream_processor_rest_api_url: https://localhost:7444
-stream_processor_rest_api_username: ${admin.username}
-stream_processor_rest_api_password: ${admin.password}
+das_url: "{tcp://localhost:7612}"
+das_username: ${admin.username}
+das_password: ${admin.password}
+das_rest_api_url: https://localhost:9444
+das_rest_api_username: ${admin.username}
+das_rest_api_password: ${admin.password}
 
 # Server URL of the Authentication service. Make sure to import the Key Manager's public certificate to WSO2 API-M's
 # client-truststore.jks. For more information, see https://docs.wso2.com/display/ADMIN44x/Creating+New+Keystores
@@ -110,12 +110,11 @@ gateway_environments:
       name: 'Production and Sandbox',
       description: 'This is a hybrid gateway that handles both production and sandbox token traffic.',
       server_url: 'https://localhost:${mgt.transport.https.port}${carbon.context}services/',
-      gateway_endpoint: 'http://${carbon.local.ip}:${http.nio.port},https://${carbon.local.ip}:${https.nio.port}',
-      gateway_ws_endpoint: 'ws://${carbon.local.ip}:9099' }
+      gateway_endpoint: 'http://${carbon.local.ip}:${http.nio.port},https://${carbon.local.ip}:${https.nio.port}'  }
 
 # Traffic Manager configurations
-traffic_manager_receiver_url: tcp://${carbon.local.ip}:${receiver.url.port}
-traffic_manager_auth_url: ssl://${carbon.local.ip}:${auth.url.port}
+data_publisher_receiver_url: tcp://${carbon.local.ip}:${receiver.url.port}
+data_publisher_auth_url: ssl://${carbon.local.ip}:${auth.url.port}
 
 # Datasource configurations
 wso2am_db_driver: org.h2.Driver
@@ -124,17 +123,17 @@ wso2am_db_username: wso2carbon
 wso2am_db_password: wso2carbon
 wso2am_db_validation_query: SELECT 1
 
-wso2um_db_driver: org.h2.Driver
-wso2um_db_url: jdbc:h2:repository/database/WSO2CARBON_DB;DB_CLOSE_ON_EXIT=FALSE
-wso2um_db_username: wso2carbon
-wso2um_db_password: wso2carbon
-wso2um_db_validation_query: SELECT 1
+wso2stats_db_driver: org.h2.Driver
+wso2stats_db_url: jdbc:h2:repository/database/WSO2CARBON_DB;DB_CLOSE_ON_EXIT=FALSE
+wso2stats_db_username: wso2carbon
+wso2stats_db_password: wso2carbon
+wso2stats_db_validation_query: SELECT 1
 
-wso2reg_db_driver: org.h2.Driver
-wso2reg_db_url: jdbc:h2:repository/database/REGISTRY_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000;AUTO_SERVER=TRUE
-wso2reg_db_username: wso2carbon
-wso2reg_db_password: wso2carbon
-wso2reg_db_validation_query: SELECT 1
+wso2mbstore_db_driver: org.h2.Driver
+wso2mbstore_db_url: jdbc:h2:repository/database/REGISTRY_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000;AUTO_SERVER=TRUE
+wso2mbstore_db_username: wso2carbon
+wso2mbstore_db_password: wso2carbon
+wso2mbstore_db_validation_query: SELECT 1
 
 # Key Store and Trust Store configuration
 key_store_location: repository/resources/security/wso2carbon.jks
